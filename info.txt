@@ -1,9 +1,0 @@
-Important Ressources:
-
-https://dragonforest.in/webp-flask/
-
-https://github.com/santhalakshminarayana/image-to-pdf-text-speech
-
-https://www.google.ca/search?q=how+to+upload+and+download+files+in+flask&source=lnms&sa=X&ved=2ahUKEwjho9HuxYn8AhXaEVkFHbVRAewQ_AUoAHoECAsQAg&biw=1440&bih=683&dpr=2
-
-https://www.youtube.com/watch?v=GeiUTkSAJPs
