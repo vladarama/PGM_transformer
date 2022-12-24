@@ -16,12 +16,6 @@ def allowed_file(filename):
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET', "POST"])
-@app.route('/home', methods = ['GET', "POST"])
-def home():
-    return render_template('index.html')
-
-
 def remove_files():
     in_files = glob.glob('input/*')
     out_files = glob.glob('output/*')
@@ -31,6 +25,16 @@ def remove_files():
 
     for f in out_files:
         os.remove(f)
+
+
+@app.route('/', methods = ['GET', "POST"])
+@app.route('/home', methods = ['GET', "POST"])
+def home():
+    remove_files()
+    return render_template('index.html')
+
+
+
 
 
 @app.route('/invert', methods=['GET', 'POST'])
@@ -97,3 +101,47 @@ def flip_vertical():
         return render_template('confirmation.html')
     return render_template('flip_vertical.html')
 
+
+
+
+@app.route('/compress', methods=['GET', 'POST'])
+def compress():
+
+    remove_files()
+
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_location = os.path.join('input', filename)
+            file.save(save_location)
+
+            pro.save_image(pro.compress(pro.load_image(save_location)), str('output/')+'new'+filename)
+            return send_from_directory('output', 'new'+filename)
+            
+        os.remove('input/'+filename)
+        os.remove('output/'+'new'+filename)
+        return render_template('confirmation.html')
+    return render_template('compress.html')
+
+
+
+@app.route('/decompress', methods=['GET', 'POST'])
+def decompress():
+
+    remove_files()
+
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_location = os.path.join('input', filename)
+            file.save(save_location)
+
+            pro.save_image(pro.decompress(pro.load_image(save_location)), str('output/')+'new'+filename)
+            return send_from_directory('output', 'new'+filename)
+            
+        os.remove('input/'+filename)
+        os.remove('output/'+'new'+filename)
+        return render_template('confirmation.html')
+    return render_template('decompress.html')
