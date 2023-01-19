@@ -1,5 +1,3 @@
-# Vlad Arama (Student ID: 261117381)
-
 def is_valid_image(PGM_list):
     ''' (list) -> bool
     Returns True if the PGM_list representes a valid non-compressed PGM image matrix

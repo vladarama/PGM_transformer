@@ -1,6 +1,6 @@
 import os
 import glob
-import processing as pro
+import transformer as tr
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 
@@ -50,7 +50,7 @@ def invert():
             output_location = os.path.join('output', filename)
             file.save(save_location)
 
-            pro.save_image(pro.invert(pro.load_image(save_location)), str('output/')+'new'+filename)
+            tr.save_image(tr.invert(tr.load_image(save_location)), str('output/')+'new'+filename)
             return send_from_directory('output', 'new'+filename)
 
         return render_template('confirmation.html')
@@ -72,7 +72,7 @@ def flip_horizontal():
             save_location = os.path.join('input', filename)
             file.save(save_location)
 
-            pro.save_image(pro.flip_horizontal(pro.load_image(save_location)), str('output/')+'new'+filename)
+            tr.save_image(tr.flip_horizontal(tr.load_image(save_location)), str('output/')+'new'+filename)
             return send_from_directory('output', 'new'+filename)
 
         os.remove('input/'+filename)
@@ -93,7 +93,7 @@ def flip_vertical():
             save_location = os.path.join('input', filename)
             file.save(save_location)
 
-            pro.save_image(pro.flip_vertical(pro.load_image(save_location)), str('output/')+'new'+filename)
+            tr.save_image(tr.flip_vertical(tr.load_image(save_location)), str('output/')+'new'+filename)
             return send_from_directory('output', 'new'+filename)
             
         os.remove('input/'+filename)
@@ -116,7 +116,7 @@ def compress():
             save_location = os.path.join('input', filename)
             file.save(save_location)
 
-            pro.save_image(pro.compress(pro.load_image(save_location)), str('output/')+'new'+filename)
+            tr.save_image(tr.compress(tr.load_image(save_location)), str('output/')+'new'+filename)
             return send_from_directory('output', 'new'+filename)
             
         os.remove('input/'+filename)
@@ -138,7 +138,7 @@ def decompress():
             save_location = os.path.join('input', filename)
             file.save(save_location)
 
-            pro.save_image(pro.decompress(pro.load_image(save_location)), str('output/')+'new'+filename)
+            tr.save_image(tr.decompress(tr.load_image(save_location)), str('output/')+'new'+filename)
             return send_from_directory('output', 'new'+filename)
             
         os.remove('input/'+filename)
